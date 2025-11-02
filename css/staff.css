@@ -1,0 +1,156 @@
+:root {
+   --accent:#0d6efd;
+   --muted:#6c757d;
+   --card-radius:14px
+}
+
+body {
+   background:#f5f7fb;
+   font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+.app-shell {
+   max-width:1200px;
+   margin:28px auto;
+   padding:20px;
+}
+
+.brand {
+   display:flex;
+   align-items:center;
+   gap:.8rem;
+} 
+
+.brand .logo {
+   width:64px;
+   height:64px;
+   border-radius:12px;
+   background:#fff;
+   display:flex;
+   align-items:center;
+   justify-content:center;
+   box-shadow:0 6px 18px rgba(14,30,37,.06)
+}
+
+.brand img {
+   width:60px;
+   height:60px;
+   object-fit:cover;
+   border-radius:10px;
+}
+
+.card-lg {
+   border-radius:var(--card-radius);
+   box-shadow:0 8px 24px rgba(14,30,37,.06);
+}
+   
+label.required:after {
+   content:"*";
+   color:#d63384;
+   margin-left:.18rem;
+}
+
+.section-title {
+   font-size:1rem;
+   font-weight:600;
+   margin-bottom:.5rem;
+}
+
+.small-muted {
+   font-size:.85rem;
+   color:var(--muted);
+}
+
+.member-card {
+   border:1px dashed #e9ecef;
+   padding:12px;
+   border-radius:10px;
+   background:#fff;
+}
+
+.btn-sm-icon {
+   padding:.275rem .5rem;
+}
+
+.muted-small {
+   font-size:.85rem;
+   color:#6c757d;
+}
+
+.delete-member {
+   background:#ef4444;
+   color:#fff;
+    border:0; 
+}
+
+.delete-member:hover {
+    opacity:.9;
+}
+
+ .footer {
+    background-color: #0d6efd; /* Admin UI Blue */
+    color: #ffffff;
+    font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    box-shadow: 0 -2px 6px rgba(0,0,0,0.1);
+  }
+
+  .footer p {
+    margin: 0;
+  }
+
+  /* Generic custom alert/confirm overlay (reusable) */
+  .custom-alert {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+  }
+
+  .custom-alert-content {
+    background-color: #ffffff;
+    border-top: 5px solid #0d6efd;
+    padding: 22px 28px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    max-width: 420px;
+    width: 90%;
+    animation: popUp 0.22s ease-in-out;
+  }
+
+  .custom-alert h5 {
+    margin-bottom: 6px;
+    font-weight:700;
+  }
+
+  .custom-alert p {
+    margin-bottom: 12px;
+    color: #333;
+  }
+
+  .custom-alert .btn-row {
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin-top:8px;
+  }
+
+  @keyframes popUp {
+    from { transform: scale(0.92); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+
+  /* smaller text for helper */
+  .custom-alert .small-muted {
+    font-size: .85rem;
+    color: var(--muted);
+  }

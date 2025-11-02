@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Barangay Cabarian Household Registration</title>
+  <link href="bootstrap/bootstrap-5.3.8-dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/staff.css">
+
+</head>
+<body>
+  <div class="app-shell">
+    <div class="brand mb-3">
+      <div class="logo">
+        <img src="img/cabarian.png" alt="Barangay Logo" id="brandLogo">
+      </div>
+      <div>
+        <div style="font-weight:800; font-size:1.1rem">Barangay Cabarian</div>
+        <div class="small-muted">Household Registration</div>
+      </div>
+    </div>
+
+    <div class="card card-lg p-3 mb-3">
+      <div class="d-flex justify-content-between align-items-start mb-3">
+        <div>
+          <h4 class="mb-0">Household Head Information</h4>
+          <div class="small-muted">Complete the head of household details below. Add family members at the bottom.</div>
+        </div>
+        <div>
+          <!-- Logout -->
+          <button class="btn btn-outline-danger btn-sm" id="logoutBtn" title="Logout">
+            <i class="bi bi-box-arrow-right"></i> Logout
+          </button>
+        </div>
+      </div>
+
+      <form id="householdForm">
+        <div class="row gy-3">
+          <!-- Personal (Head) -->
+          <div class="col-12">
+            <div class="p-3 bg-white rounded-3 border">
+              <div class="section-title">Personal Details (Household Head)</div>
+              <div class="row g-2">
+                <div class="col-md-3"><label class="form-label required">First Name</label><input type="text" class="form-control" name="head_first_name" placeholder="Juan" required></div>
+                <div class="col-md-3"><label class="form-label required">Middle Name</label><input type="text" class="form-control" name="head_middle_name" placeholder="Santos" required></div>
+                <div class="col-md-4"><label class="form-label required">Last Name</label><input type="text" class="form-control" name="head_last_name" placeholder="Dela Cruz" required></div>
+                 <div class="col-md-2"><label class="form-label">Extension Name</label><input type="text" class="form-control" name="head_ext_name" placeholder="Jr., III"></div>
+
+                <div class="col-md-3"><label class="form-label required">Sex</label>
+                  <select class="form-select head-sex" name="head_sex" required>
+                    <option value="">Choose...</option><option>Male</option><option>Female</option><option>Prefer not to say</option>
+                  </select>
+                </div>
+                <div class="col-md-3"><label class="form-label required">Birthday</label><input type="date" class="form-control" name="head_birthday" required></div>
+                <div class="col-md-6"><label class="form-label">Place of Birth</label><input type="text" class="form-control" name="head_place_of_birth" placeholder="Complete Address"></div>
+
+                <div class="col-md-3"><label class="form-label">Height (cm)</label><input type="number" class="form-control" name="head_height" min="30" max="300" placeholder="170"></div>
+                <div class="col-md-3"><label class="form-label">Weight (kg)</label><input type="number" class="form-control" name="head_weight" min="5" max="500" placeholder="65"></div>
+                <div class="col-md-3"><label class="form-label">Blood Type</label><input type="text" class="form-control" name="head_blood_type" placeholder="O+"></div>
+                <div class="col-md-3"><label class="form-label">Religion</label><input type="text" class="form-control" name="head_religion" placeholder="Roman Catholic"></div>
+
+                <div class="col-md-3" id="headPregWrap">
+                  <label class="form-label">Pregnant Woman?</label>
+                  <div class="form-check"><input class="form-check-input" type="checkbox" id="head_pregnant" name="head_pregnant"><label class="form-check-label" for="head_pregnant">Yes, currently pregnant</label></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contact & Address (Head) -->
+          <div class="col-12">
+            <div class="p-3 bg-white rounded-3 border">
+              <div class="section-title">Contact & Address</div>
+              <div class="row g-2">
+                <div class="col-md-4"><label class="form-label required">Mobile Number</label><input type="tel" class="form-control" name="head_mobile" placeholder="09XXXXXXXXX" pattern="[0-9]{10,13}" required></div>
+                <div class="col-md-4"><label class="form-label">Alternate Contact</label><input type="tel" class="form-control" name="head_contact_alt" placeholder="Landline or other"></div>
+                <div class="col-md-4"><label class="form-label required">Citizenship</label><input type="text" class="form-control" name="head_citizenship" value="Filipino" required></div>
+
+                <div class="col-md-3"><label class="form-label required">Region</label>
+                  <select class="form-select" name="head_region" required>
+                    <option value="">Choose region...</option><option>Region I</option><option>Region II</option><option>Region III</option><option>Region IV-A</option><option>Region V</option>
+                  </select>
+                </div>
+                <div class="col-md-3"><label class="form-label required">Province</label><input class="form-control" name="head_province" placeholder="e.g., Albay" required></div>
+                <div class="col-md-3"><label class="form-label required">City / Municipality</label><input class="form-control" name="head_city" placeholder="e.g., Ligao" required></div>
+                <div class="col-md-3"><label class="form-label required">Barangay</label><input class="form-control" name="head_barangay" placeholder="e.g., Cabarian" required></div>
+
+                <div class="col-md-3"><label class="form-label">Zone / Purok</label><input class="form-control" name="head_zone" placeholder="Zone 1"></div>
+                <div class="col-md-3"><label class="form-label">Length of Stay (years)</label><input type="number" class="form-control" name="head_length_of_stay" min="0" placeholder="5"></div>
+                <div class="col-md-3"><label class="form-label">Numbers of Family Members</label><input type="number" class="form-control" name="head_family_members" id="head_family_members" min="1" value="1" placeholder="4"></div>
+                <div class="col-md-3"><label class="form-label">Relationship to Head</label><input type="text" class="form-control" name="Relationship_to_head" id="Relationship_to_head" placeholder="e.g., Father,Mother"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Education & Work (Head) -->
+          <div class="col-12">
+            <div class="p-3 bg-white rounded-3 border">
+              <div class="section-title">Education & Occupation</div>
+              <div class="row g-2">
+                <div class="col-md-5"><label class="form-label">Educational Attainment</label>
+                  <select class="form-select" name="head_education">
+                    <option value="">-- Select --</option><option>No Formal Education</option><option>Elementary Level</option><option>Elementary Graduate</option><option>High School Level</option><option>High School Graduate</option><option>Senior High School</option><option>Vocational / Technical</option><option>College Level</option><option>College Graduate</option><option>Postgraduate</option>
+                  </select>
+                </div>
+                <div class="col-md-4"><label class="form-label">Degree / Course</label><input class="form-control" name="head_degree" placeholder="BS Computer Science"></div>
+                <div class="col-md-3"><label class="form-label">Out-of-School Youth</label><select class="form-select" name="head_oosy"><option>No</option><option>Yes</option></select></div>
+
+                <div class="col-md-4"><label class="form-label">Occupation</label><input class="form-control" name="head_occupation" placeholder="e.g., Farmer, OFW, Student"></div>
+                <div class="col-md-3"><label class="form-label">Monthly Income (PHP)</label><input type="text" class="form-control" name="head_monthly_income"></div>
+                <div class="col-md-2"><label class="form-label">4Ps Member</label><select class="form-select" name="head_4ps"><option>No</option><option>Yes</option></select></div>
+                <div class="col-md-3"><label class="form-label">Registered Voter</label><select class="form-select" name="head_voter"><option>No</option><option>Yes</option></select></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Gov IDs (Head) -->
+          <div class="col-12">
+            <div class="p-3 bg-white rounded-3 border">
+              <div class="section-title">Government IDs & Numbers</div>
+              <div class="row g-2">
+                <div class="col-md-3"><label class="form-label">SSS Number</label><input class="form-control" name="head_sss"></div>
+                <div class="col-md-3"><label class="form-label">PhilHealth</label><input class="form-control" name="head_philhealth"></div>
+                <div class="col-md-3"><label class="form-label">GSIS</label><input class="form-control" name="head_gsis"></div>
+                <div class="col-md-3"><label class="form-label">TIN</label><input class="form-control" name="head_tin"></div>
+                <div class="col-md-3"><label class="form-label">National ID</label><input class="form-control" name="head_national_id"></div>
+                <div class="col-md-3"><label class="form-label">Driver's License</label><input class="form-control" name="head_dl_number"></div>
+                <div class="col-md-3"><label class="form-label">Passport</label><input class="form-control" name="head_passport"></div>
+                <div class="col-md-3"><label class="form-label">Other ID</label><input class="form-control" name="head_other_id" placeholder="e.g., Voter's ID"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Family Members (dynamic) -->
+          <div class="col-12">
+            <div class="p-3 bg-white rounded-3 border">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <div class="section-title">Family Members</div>
+                <!-- top Add removed as requested -->
+              </div>
+
+              <div id="membersContainer" class="mb-2"></div>
+
+              <!-- single bottom add member button -->
+              <div class="text-center mt-2">
+                <button type="button" class="btn btn-outline-primary btn-sm" id="addMemberBtn"><i class="bi bi-person-plus"></i> Add Member</button>
+              </div>
+
+              <template id="memberTemplate">
+                <div class="member-card mb-3">
+                  <div class="d-flex justify-content-between align-items-start mb-2">
+                    <div style="font-weight:600">Member <span class="member-index"></span></div>
+                    <div>
+                      <button type="button" class="btn btn-sm delete-member remove-member"><i class="bi bi-trash"></i> Delete Member</button>
+                    </div>
+                  </div>
+
+                  <!-- Member fields (same as before) -->
+                    <div class="col-12 mb-3" >
+                      <div class="p-3 bg-white rounded-3 border">
+                        <div class="row g-2">
+                           <div class="section-title">Personal Details (Members)</div>
+                          <div class="col-md-3"><label class="form-label required">First Name</label><input type="text" class="form-control member-first-name" name="member_first_name" placeholder="Juan" required></div>
+                          <div class="col-md-3"><label class="form-label required">Middle Name</label><input type="text" class="form-control member-middle" name="member_middle_name" placeholder="Santos" required></div>
+                          <div class="col-md-4"><label class="form-label required">Last Name</label><input type="text" class="form-control member-last" name="member_last_name" placeholder="Dela Cruz" required></div>
+                          <div class="col-md-2"><label class="form-label">Extension Name</label><input type="text" class="form-control member-ext" name="member_ext_name" placeholder="Jr., III"></div>
+
+                          <div class="col-md-3"><label class="form-label required">Sex</label>
+                            <select class="form-select member-sex" required><option value="">Choose...</option><option>Male</option><option>Female</option><option>Prefer not to say</option></select>
+                          </div>
+                          <div class="col-md-3"><label class="form-label required">Birthday</label><input type="date" class="form-control member-bday" required></div>
+                          <div class="col-md-6"><label class="form-label">Place of Birth</label><input type="text" class="form-control member-place" placeholder="City, Province"></div>
+
+                          <div class="col-md-2"><label class="form-label">Height (cm)</label><input type="number" class="form-control member-height" min="30" max="300" placeholder="170"></div>
+                          <div class="col-md-2"><label class="form-label">Weight (kg)</label><input type="number" class="form-control member-weight" min="5" max="500" placeholder="65"></div>
+                          <div class="col-md-4"><label class="form-label">Blood Type</label><input type="text" class="form-control member-blood" placeholder="O+"></div>
+                          <div class="col-md-4"><label class="form-label">Religion</label><input type="text" class="form-control member-religion" placeholder="Roman Catholic"></div>
+
+                          <div class="col-md-3 member-preg-wrap">
+                            <label class="form-label">Pregnant Woman?</label>
+                            <div class="form-check"><input class="form-check-input member-pregnant" type="checkbox"><label class="form-check-label">Yes</label></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                      
+                    <!-- contact/address -->
+                    <div class="col-12 mb-3" >
+                      <div class="p-3 bg-white rounded-3 border mb-2">
+                        <div class="row g-2">
+                          <div class="section-title">Contact & Address</div>
+                            <div class="row g-2">
+                              <div class="col-md-4"><label class="form-label required">Mobile Number</label><input type="tel" class="form-control member-mobile" name="member_mobile" placeholder="09XXXXXXXXX" pattern="[0-9]{10,13}" required></div>
+                              <div class="col-md-4"><label class="form-label">Alternate Contact</label><input type="tel" class="form-control member-contact-alt" name="member_contact_alt" placeholder="Landline or other"></div>
+                              <div class="col-md-4"><label class="form-label required">Citizenship</label><input type="text" class="form-control member-citizenship" name="member_citizenship" value="Filipino" required></div>
+
+                              <div class="col-md-4"><label class="form-label required">Region</label>
+                                <select class="form-select member-region" name="member_region" required>
+                                  <option value="">Choose region...</option><option>Region I</option><option>Region II</option><option>Region III</option><option>Region IV-A</option><option>Region V</option>
+                                </select>
+                              </div>
+                              <div class="col-md-4"><label class="form-label">Length of Stay (years)</label><input type="number" class="form-control member-length" name="member_length_of_stay" min="0" placeholder="5"></div>
+                              <div class="col-md-4"><label class="form-label">Relationship to Head</label><input type="text" class="form-control member-relationship" name="member_relationship" id="Relationship_to_head" placeholder="e.g., Son, Daughter"></div>
+                              <div class="col-md-3"><label class="form-label">Zone / Purok</label><input class="form-control member-zone" name="member_zone" placeholder="Zone 1"></div>
+
+                              <div class="col-md-3"><label class="form-label required">Province</label><input class="form-control member-province" name="member_province" placeholder="e.g., Albay" required></div>
+                              <div class="col-md-3"><label class="form-label required">City / Municipality</label><input class="form-control member-city" name="member_city" placeholder="e.g., Ligao" required></div>
+                              <div class="col-md-3"><label class="form-label required">Barangay</label><input class="form-control member-barangay" name="member_barangay" placeholder="e.g., Cabarian" required></div>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- education & work -->
+                    <div class="col-12 mb-3" >
+                      <div class="p-3 bg-white rounded-3 border mb-2">
+                        <div class="row g-2">
+                          <div class="section-title">Education and Occupation</div>
+                            <div class="row g-2">
+                              <div class="col-md-4"><label class="form-label">Educational Attainment</label>
+                                <select class="form-select member-education" name="member_education"><option value="">-- Select --</option><option>No Formal Education</option><option>Elementary Level</option><option>Elementary Graduate</option><option>High School Level</option><option>High School Graduate</option><option>Senior High School</option><option>Vocational / Technical</option><option>College Level</option><option>College Graduate</option><option>Postgraduate</option></select>
+                              </div>
+                              <div class="col-md-4"><label class="form-label">Degree / Course</label><input class="form-control member-degree" name="member_degree"></div>
+                              <div class="col-md-4"><label class="form-label">Out-of-School Youth</label><select class="form-select member-oosy" name="member_oosy"><option>No</option><option>Yes</option></select></div>
+
+                              <div class="col-md-4"><label class="form-label">Occupation</label><input class="form-control member-occupation" name="member_occupation"></div>
+                              <div class="col-md-3"><label class="form-label">Monthly Income (PHP)</label><input type="text" class="form-control member-income" name="member_monthly_income"></div>
+                              <div class="col-md-3"><label class="form-label">4Ps Member</label><select class="form-select member-4ps" name="member_4ps"><option>No</option><option>Yes</option></select></div>
+                              <div class="col-md-2"><label class="form-label">Registered Voter</label><select class="form-select member-voter" name="member_voter"><option>No</option><option>Yes</option></select></div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- gov ids -->
+                    <div class="col-12 mb-3" >
+                      <div class="p-3 bg-white rounded-3 border mb-2">
+                        <div class="row g-2">
+                          <div class="section-title">Education and Occupation</div>
+                            <div class="row g-2">
+                              <div class="col-md-3"><label class="form-label">SSS Number</label><input class="form-control member-sss" name="member_sss"></div>
+                              <div class="col-md-3"><label class="form-label">PhilHealth</label><input class="form-control member-philhealth" name="member_philhealth"></div>
+                              <div class="col-md-3"><label class="form-label">GSIS</label><input class="form-control member-gsis" name="member_gsis"></div>
+                              <div class="col-md-3"><label class="form-label">TIN</label><input class="form-control member-tin" name="member_tin"></div>
+                              <div class="col-md-3"><label class="form-label">National ID</label><input class="form-control member-national" name="member_national"></div>
+                              <div class="col-md-3"><label class="form-label">Driver's License</label><input class="form-control member-dl" name="member_dl"></div>
+                              <div class="col-md-3"><label class="form-label">Passport</label><input class="form-control member-passport" name="member_passport"></div>
+                              <div class="col-md-3"><label class="form-label">Other ID</label><input class="form-control member-otherid" name="member_otherid" placeholder="e.g., Voter's ID"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </template>
+
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="col-12 text-end">
+            <button type="button" class="btn btn-secondary btn-sm me-2" id="clearBtn"><i class="bi bi-x-circle"></i> Clear</button>
+            <button type="button" class="btn btn-primary btn-sm me-2" id="previewBtn"><i class="bi bi-eye"></i> Preview</button>
+            <button type="submit" class="btn btn-success btn-sm" id="saveBtn"><i class="bi bi-save"></i> Save Registration</button>
+          </div>
+
+        </div>
+      </form>
+
+    </div>
+
+    <div class="text-center small-muted">Tip: Required fields are marked with <span class="text-danger">*</span></div>
+  </div>
+
+  <!-- Preview Modal -->
+  <div class="modal fade" id="previewModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Preview Registration</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="previewBody"></div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- Logout Confirmation (you already had this) -->
+<div id="logoutAlert" class="custom-alert">
+  <div class="custom-alert-content">
+    <h5 class="mb-3">Confirm Logout</h5>
+    <p>Are you sure you want to logout?</p>
+    <div class="mt-3 d-flex justify-content-center gap-2">
+      <button class="btn btn-secondary btn-sm" onclick="closeLogoutAlert()">Cancel</button>
+      <button class="btn btn-danger btn-sm" onclick="confirmLogout()">Logout</button>
+    </div>
+  </div>
+</div>
+
+<!-- Generic custom alert/confirm used throughout -->
+<div id="genericAlert" class="custom-alert" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="custom-alert-content" role="document">
+    <h5 id="genericAlertTitle">Notice</h5>
+    <p id="genericAlertMessage">Message goes here</p>
+    <div id="genericAlertExtra" class="small-muted"></div>
+    <div class="btn-row mt-3">
+      <!-- Buttons will be shown/hidden dynamically -->
+      <button id="genericCancelBtn" class="btn btn-secondary btn-sm">Cancel</button>
+      <button id="genericOkBtn" class="btn btn-primary btn-sm">OK</button>
+      <button id="genericDangerBtn" class="btn btn-danger btn-sm">Delete</button>
+    </div>
+  </div>
+</div>
+
+  <footer class="footer mt-auto py-3 text-center text-white">
+  <div class="container">
+    <p class="mb-1 fw-semibold">Barangay Cabarian Ligao City Household Information Management System</p>
+    <p class="mb-0 small">
+      © <span id="year"></span> Barangay Cabarian, Ligao City. All Rights Reserved.
+    </p>
+  </div>
+</footer>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+
+  <!-- Local Bootstrap JS -->
+  <script src="bootstrap/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
+
+  <script src="js/staff.js"> </script>
+</body>
+</html>

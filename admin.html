@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin Dashboard</title>
+
+  <!-- Bootstrap link -->
+  <link href="bootstrap/bootstrap-5.3.8-dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+
+<body>
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <div class="bg-primary text-white p-3 vh-100%" id="sidebar" aria-hidden="false">
+      <div class="text-center mb-4">
+        <img src="img/cabarian.png" width="80" class="mb-2" alt="Logo">
+        <h5>Barangay Cabarian</h5>
+        <div class="small">Admin Panel</div>
+      </div>
+
+      <ul class="nav flex-column">
+        <li class="nav-item"><a href="#" class="nav-link text-white"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
+        <li class="nav-item"><a href="#" class="nav-link text-white"><i class="bi bi-people"></i> Households</a></li>
+        <li class="nav-item"><a href="#" class="nav-link text-white"><i class="bi bi-graph-up"></i> Data Management</a></li>
+        <li class="nav-item"><a href="#" class="nav-link text-white"><i class="bi bi-file-earmark-text"></i> Reports</a></li>
+        <li class="nav-item"><a href="#" class="nav-link text-white"><i class="bi bi-person-badge"></i> Staff Accounts</a></li>
+      </ul>
+
+      <hr class="border-light">
+      <button class="btn btn-danger w-100" id="logoutBtnSidebar"><i class="bi bi-box-arrow-right"></i> Logout</button>
+    </div>
+
+    <!-- overlay for mobile sidebar -->
+    <div id="sidebarOverlay" aria-hidden="true"></div>
+
+    <!-- Main Content -->
+    <div class="flex-grow-1" id="content">
+      <div class="p-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <div class="d-flex align-items-center gap-3">
+            <button class="btn btn-outline-secondary btn-sm" id="toggleSidebarBtn" title="Toggle sidebar"><i class="bi bi-list" id="toggleIcon"></i></button>
+            <h3 class="fw-bold text-primary mb-0">Admin Dashboard</h3>
+          </div>
+
+          <div class="d-flex gap-2">
+              <select id="yearFilter" class="form-select form-select-sm" style="width: 150px;">
+                <option value="all">All Years</option>
+                <option value="2024">2024</option>
+                <option value="2023">2023</option>
+              </select>
+
+            <button class="btn btn-outline-primary btn-sm" id="refreshBtn"><i class="bi bi-arrow-clockwise"></i> Refresh Data</button>
+          </div>
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="row g-3 mb-4" id="summaryCards">
+          <div class="col-md-4">
+            <div class="card border-0 shadow-sm p-3">
+              <div class="d-flex align-items-center">
+                <div class="icon bg-success bg-opacity-10 text-success p-3 rounded me-3"><i class="bi bi-people-fill"></i></div>
+                <div>
+                  <div class="fw-semibold">Total Population</div>
+                  <h5 id="totalPopulation">0</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card border-0 shadow-sm p-3">
+              <div class="d-flex align-items-center">
+                <div class="icon bg-primary bg-opacity-10 text-primary p-3 rounded me-3"><i class="bi bi-house-door"></i></div>
+                <div>
+                  <div class="fw-semibold">Total Households</div>
+                  <h5 id="totalHouseholds">0</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card border-0 shadow-sm p-3">
+              <div class="d-flex align-items-center">
+                <div class="icon bg-info bg-opacity-10 text-info p-3 rounded me-3"><i class="bi bi-gender-ambiguous"></i></div>
+                <div>
+                  <div class="fw-semibold">Gender Counts</div>
+                  <h5 id="genderCounts">M: 0 | F: 0</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card border-0 shadow-sm p-3">
+              <div class="d-flex align-items-center">
+                <div class="icon bg-warning bg-opacity-10 text-warning p-3 rounded me-3"><i class="bi bi-person-badge"></i></div>
+                <div>
+                  <div class="fw-semibold">Senior Citizens</div>
+                  <h5 id="seniorCount">0</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card border-0 shadow-sm p-3">
+              <div class="d-flex align-items-center">
+                <div class="icon bg-danger bg-opacity-10 text-danger p-3 rounded me-3"><i class="bi bi-heart-pulse"></i></div>
+                <div>
+                  <div class="fw-semibold">PWD's</div>
+                  <h5 id="pwdCount">0</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card border-0 shadow-sm p-3">
+              <div class="d-flex align-items-center">
+                <div class="icon bg-pink bg-opacity-10 text-danger p-3 rounded me-3"><i class="bi bi-person-heart"></i></div>
+                <div>
+                  <div class="fw-semibold">Pregnant Women</div>
+                  <h5 id="pregnantCount">0</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Age Bracket Cards -->
+        <div class="card border-0 shadow-sm mb-4">
+          <div class="card-body">
+            <h5 class="card-title fw-bold mb-3">Age Brackets</h5>
+            <div class="row g-2" id="ageBracketsRow">
+              <div class="col-6 col-md-3 col-lg-2"><div class="card p-2 text-center small"><div class="fw-semibold">0 - 5</div><div class="h4 mb-0" id="br_0_5">0</div></div></div>
+              <div class="col-6 col-md-3 col-lg-2"><div class="card p-2 text-center small"><div class="fw-semibold">6 - 10</div><div class="h4 mb-0" id="br_6_10">0</div></div></div>
+              <div class="col-6 col-md-3 col-lg-2"><div class="card p-2 text-center small"><div class="fw-semibold">11 - 15</div><div class="h4 mb-0" id="br_11_15">0</div></div></div>
+              <div class="col-6 col-md-3 col-lg-2"><div class="card p-2 text-center small"><div class="fw-semibold">16 - 20</div><div class="h4 mb-0" id="br_16_20">0</div></div></div>
+              <div class="col-6 col-md-3 col-lg-2"><div class="card p-2 text-center small"><div class="fw-semibold">21 - 30</div><div class="h4 mb-0" id="br_21_30">0</div></div></div>
+              <div class="col-6 col-md-3 col-lg-2"><div class="card p-2 text-center small"><div class="fw-semibold">31 - 40</div><div class="h4 mb-0" id="br_31_40">0</div></div></div>
+              <div class="col-6 col-md-3 col-lg-2"><div class="card p-2 text-center small"><div class="fw-semibold">41 - 50</div><div class="h4 mb-0" id="br_41_50">0</div></div></div>
+              <div class="col-6 col-md-3 col-lg-2"><div class="card p-2 text-center small"><div class="fw-semibold">51 - 60</div><div class="h4 mb-0" id="br_51_60">0</div></div></div>
+              <div class="col-6 col-md-3 col-lg-2"><div class="card p-2 text-center small"><div class="fw-semibold">61 - 70</div><div class="h4 mb-0" id="br_61_70">0</div></div></div>
+              <div class="col-6 col-md-3 col-lg-2"><div class="card p-2 text-center small"><div class="fw-semibold">71+</div><div class="h4 mb-0" id="br_71_plus">0</div></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="card border-0 shadow-sm mb-4">
+          <div class="card-body">
+            <h5 class="card-title fw-bold mb-3">Demographic Charts</h5>
+
+            <div class="chart-grid" id="demographicChartsSection">
+              <!-- Age (bar) -->
+              <div class="chart-card">
+                <div class="card-head">Population by Age Group</div>
+                <div class="card-body"><canvas id="chart_age"></canvas></div>
+                <div class="chart-summary">Groups: 0–12, 13–17, 18–35, 36–59, 60+</div>
+              </div>
+
+              <!-- Gender (doughnut) -->
+              <div class="chart-card">
+                <div class="card-head">Population by Gender</div>
+                <div class="card-body"><canvas id="chart_gender"></canvas></div>
+                <div class="chart-summary">Male / Female / Others</div>
+              </div>
+
+              <!-- Civil status (doughnut) -->
+              <div class="chart-card">
+                <div class="card-head">Population by Civil Status</div>
+                <div class="card-body"><canvas id="chart_civil"></canvas></div>
+                <div class="chart-summary">Single / Married / Widowed / Separated</div>
+              </div>
+
+              <!-- Education (bar horizontal) -->
+              <div class="chart-card">
+                <div class="card-head">Educational Attainment</div>
+                <div class="card-body"><canvas id="chart_education"></canvas></div>
+                <div class="chart-summary">Elementary, High School, College, Vocational, None</div>
+              </div>
+
+              <!-- Employment (bar) -->
+              <div class="chart-card">
+                <div class="card-head">Employment Status</div>
+                <div class="card-body"><canvas id="chart_employment"></canvas></div>
+                <div class="chart-summary">Employed / Unemployed / Self-Employed / Student / Retired</div>
+              </div>
+
+              <!-- Religion (doughnut) -->
+              <div class="chart-card">
+                <div class="card-head">Religion Distribution</div>
+                <div class="card-body"><canvas id="chart_religion"></canvas></div>
+                <div class="chart-summary">Top religions</div>
+              </div>
+
+              <!-- 4Ps membership (doughnut) -->
+              <div class="chart-card">
+                <div class="card-head">4Ps Membership</div>
+                <div class="card-body"><canvas id="chart_4ps"></canvas></div>
+                <div class="chart-summary">Member vs Not a Member</div>
+              </div>
+
+              <!-- Registered voters (doughnut) -->
+              <div class="chart-card">
+                <div class="card-head">Registered Voters</div>
+                <div class="card-body"><canvas id="chart_voters"></canvas></div>
+                <div class="chart-summary">Registered vs Not Registered</div>
+              </div>
+
+              <!-- Blood types (doughnut) -->
+              <div class="chart-card">
+                <div class="card-head">Blood Type Distribution</div>
+                <div class="card-body"><canvas id="chart_blood"></canvas></div>
+                <div class="chart-summary">A / B / AB / O</div>
+              </div>
+
+              <!-- PWD (doughnut) -->
+              <div class="chart-card">
+                <div class="card-head">Persons with Disability (PWD)</div>
+                <div class="card-body"><canvas id="chart_pwd"></canvas></div>
+                <div class="chart-summary">Yes / No</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- View Modal -->
+        <div class="modal fade" id="viewModal" tabindex="-1" aria-hidden="true">
+          <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Household Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body" id="viewModalBody">
+                <div class="text-muted small">No details available. Implement population of this modal in <code>js/admin.js</code>.</div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <footer class="footer mt-auto py-3 text-center text-white">
+          <div class="container">
+            <p class="mb-1 fw-semibold">Barangay Cabarian Ligao City Household Information Management System</p>
+            <p class="mb-0 small">
+              © <span id="year"></span> Barangay Cabarian, Ligao City. All Rights Reserved.
+            </p>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </div>
+
+  <!-- Generic custom alert/confirm used throughout -->
+  <div id="genericAlert" class="custom-alert" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="custom-alert-content" role="document" aria-live="polite">
+      <h5 id="genericAlertTitle">Notice</h5>
+      <div class="message">
+        <p id="genericAlertMessage">Message goes here</p>
+      </div>
+      <div id="genericAlertExtra" class="small-muted"></div>
+      <div class="btn-row mt-3">
+        <button id="genericCancelBtn" class="btn btn-secondary btn-sm">Cancel</button>
+        <button id="genericOkBtn" class="btn btn-primary btn-sm">OK</button>
+        <button id="genericDangerBtn" class="btn btn-danger btn-sm">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- sidebar logout confirmation re-used or you can call showConfirm -->
+  <!-- optional: keep a specific logout dialog for clarity (not required) -->
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+
+  <script src="bootstrap/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
